@@ -8,6 +8,7 @@ import { PlaceholderService } from './services/placeholder.service';
 })
 export class AppComponent {
   constructor(private placeholderService : PlaceholderService){}
-  
+
   title = 'PlaceHolder';
 }
+
