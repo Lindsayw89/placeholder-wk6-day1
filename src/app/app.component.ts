@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { PlaceholderService } from './services/placeholder.service';
 import {MatTableDataSource } from '@angular/material';
-
+import {MatSort} from '@angular/material/sort';
 
 
 @Component({
@@ -10,17 +10,21 @@ import {MatTableDataSource } from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-
-  constructor(private placeholderService : PlaceholderService){}
   displayedColumns: string[] = ['userId', 'id', 'title', 'completed'];
   dataSource;
+  @ViewChild(MatSort , {static: true}) sort : MatSort; //
+  constructor(private placeholderService : PlaceholderService){}
+ 
 
 async ngOnInit() {
 this.dataSource= await this.placeholderService.get();
+this.dataSource.sort= this.sort;
 }
+applyFilter(filterValue: string){
+  this.dataSource.filter=filterValue.trim().toLocaleLowerCase();
 
 
+}
 }
 
 
